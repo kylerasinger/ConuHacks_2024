@@ -13,7 +13,7 @@ export default function Form() {
             const formData = new FormData();
             formData.append('file', file)
 
-            fetch('http://localhost:8080/upload', {
+            fetch('http://localhost:8080/api/upload', {
                 method: 'POST',
                 body: formData,
             })
