@@ -418,7 +418,7 @@ public class VehicleController {
             	}
             	
             	if(isEmpty4 = true) {
-            		mClass2TrucksCount++;
+            		setClass2TrucksCount(mClass2TrucksCount);
             		
                 	for(int i = currentMinute; i < currentMinute+120; i++) {
                 		
@@ -446,7 +446,7 @@ public class VehicleController {
             			}
                  	}
                 	if(isEmpty4 = true) {
-                		mClass2TrucksCount++;
+                		setClass2TrucksCount(mClass2TrucksCount);
                 		
                     	for(int i = currentMinute; i < currentMinute+120; i++) {
                     		
@@ -456,7 +456,7 @@ public class VehicleController {
                 	}
                 	
                 	else
-                		mClass2TrucksCountMissed++;
+                		setClass2TrucksCountMissed(mClass2TrucksCountMissed);
             	}
                 break;
             default:
@@ -563,6 +563,18 @@ public class VehicleController {
     }
     
     
+	
+	public void setClass2TrucksCount(int input) {
+		
+		input++; 
+		mClass2TrucksCount = input;
+	}
+	
+	public void setClass2TrucksCountMissed(int input) {
+		
+		input++; 
+		mClass2TrucksCountMissed = input;
+	}
 	
 	
 }
