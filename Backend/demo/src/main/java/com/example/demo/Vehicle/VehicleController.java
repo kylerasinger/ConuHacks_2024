@@ -44,20 +44,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VehicleController {
 	
 
-	public int mCompactCarCount = 0;
-	public int mMediumCarCount = 0;
-	public int mFullSizeCarCount = 0;
-	public int mClass1TrucksCount = 0;
-	public int mClass2TrucksCount = 0;
-	public int mCompactCarCountMissed = 0;
-	public int mMediumCarCountMissed = 0;
-	public int mFullSizeCarCountMissed = 0;
-	public int mClass1TrucksCountMissed = 0;
-	public int mClass2TrucksCountMissed = 0;
-	private int mTotalActualRevenue = 0;
-	private int mTotalMissedRevenue = 0;
-	private int mTotalActualVehicles = 0;
-	private int mTotalMissedVehicles = 0;
+	public int mCompactCarCount;
+	public int mMediumCarCount;
+	public int mFullSizeCarCount;
+	public int mClass1TrucksCount;
+	public int mClass2TrucksCount;
+	public int mCompactCarCountMissed;
+	public int mMediumCarCountMissed;
+	public int mFullSizeCarCountMissed;
+	public int mClass1TrucksCountMissed;
+	public int mClass2TrucksCountMissed;
+	private int mTotalActualRevenue;
+	private int mTotalMissedRevenue;
+	private int mTotalActualVehicles;
+	private int mTotalMissedVehicles;
 	
 	public VehicleController() {
 		
@@ -417,7 +417,7 @@ public class VehicleController {
             	}
             	
             	if(isEmpty4 = true) {
-            		mClass2TrucksCount++;
+            		setClass2TrucksCount(mClass2TrucksCount);
             		
                 	for(int i = currentMinute; i < currentMinute+120; i++) {
                 		
@@ -445,7 +445,7 @@ public class VehicleController {
             			}
                  	}
                 	if(isEmpty4 = true) {
-                		mClass2TrucksCount++;
+                		setClass2TrucksCount(mClass2TrucksCount);
                 		
                     	for(int i = currentMinute; i < currentMinute+120; i++) {
                     		
@@ -455,7 +455,7 @@ public class VehicleController {
                 	}
                 	
                 	else
-                		mClass2TrucksCountMissed++;
+                		setClass2TrucksCountMissed(mClass2TrucksCountMissed);
             	}
                 break;
             default:
@@ -496,6 +496,18 @@ public class VehicleController {
 	public int getTotalMissedVehicles() {
 		
 		return mCompactCarCountMissed + mMediumCarCountMissed + mFullSizeCarCountMissed + mClass1TrucksCountMissed + mClass2TrucksCountMissed;
+	}
+	
+	public void setClass2TrucksCount(int input) {
+		
+		input++; 
+		mClass2TrucksCount = input;
+	}
+	
+	public void setClass2TrucksCountMissed(int input) {
+		
+		input++; 
+		mClass2TrucksCountMissed = input;
 	}
 	
 	
