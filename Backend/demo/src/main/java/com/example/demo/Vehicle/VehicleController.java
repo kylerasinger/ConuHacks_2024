@@ -72,7 +72,6 @@ public class VehicleController {
                 return ResponseEntity.badRequest().body("Error processing the file.");
             }
          // Process the data or return a response as needed
-		// Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest).thenComparing(Vehicle::getRequestTime));
 
          return ResponseEntity.ok("File uploaded successfully.");
 
