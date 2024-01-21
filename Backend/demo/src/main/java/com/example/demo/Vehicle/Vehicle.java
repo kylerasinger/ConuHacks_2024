@@ -1,4 +1,4 @@
-package Vehicle;
+package com.example.demo.Vehicle;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
