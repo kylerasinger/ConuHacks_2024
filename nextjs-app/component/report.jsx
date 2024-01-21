@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import styles from '../styles/Home.module.css';
+
 
 export default function VehicleSchedule() {
     const [scheduleData, setScheduleData] = useState(null);
@@ -14,7 +16,7 @@ export default function VehicleSchedule() {
                     }
                 })
                 .catch(error => console.error('Error fetching data: ', error));
-        }, 5000); // Poll every 5000 milliseconds (5 seconds)
+        }, 15000); // Poll every 5000 milliseconds (5 seconds)
 
         return () => clearInterval(interval);
     }, []);
@@ -33,11 +35,27 @@ export default function VehicleSchedule() {
     }
 
     return (
-        <div>
-            <div>Total Actual Vehicles: {scheduleData.totalActualVehicles}</div>
-            <div>Total Missed Vehicles: {scheduleData.totalMissedVehicles}</div>
-            <div>Total Actual Revenue: ${scheduleData.totalActualRevenue.toFixed(2)}</div>
-            <div>Total Missed Revenue: ${scheduleData.totalMissedRevenue.toFixed(2)}</div>
+        <div>   
+            <div className={styles.infoContainer}>
+                <div className={styles.greenGradientBox}>
+                    <h3>Total Actual Vehicles</h3>
+                    {scheduleData.totalActualVehicles}
+                </div>
+                <div className={styles.redGradientBox}>
+                    <h3>Total Missed Vehicles</h3>
+                    {scheduleData.totalMissedVehicles}
+                </div>
+            </div>
+            <div className={styles.infoContainer}>
+                <div className={styles.greenGradientBox}>
+                    <h3>Total Actual Revenue</h3> 
+                    ${scheduleData.totalActualRevenue}
+                </div>
+                <div className={styles.redGradientBox}>
+                    <h3>Total Missed Revenue</h3>
+                    ${scheduleData.totalMissedRevenue}
+                </div>
+            </div>
         </div>
     );
 };

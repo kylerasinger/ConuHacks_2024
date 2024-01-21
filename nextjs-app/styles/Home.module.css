@@ -60,7 +60,8 @@
 
 /* styles/GradientBox.module.css */
 .gradientBox,
-.pinkGradientBox {
+.greenGradientBox,
+.redGradientBox{
   width: 400px; /* Adjust the width as needed */
   height: 115px; /* Adjust the height as needed */
   border-radius: 50px; /* Rounded edges */
@@ -71,8 +72,12 @@
   /* Add more styles as needed */
 }
 
-.pinkGradientBox {
-  background: linear-gradient(rgb(255, 109, 248), rgba(0, 123, 255, 0));
+.greenGradientBox {
+  background: linear-gradient(rgb(91, 241, 123), rgba(0, 123, 255, 0));
+}
+
+.redGradientBox {
+  background: linear-gradient(rgb(255, 91, 91), rgba(0, 123, 255, 0));
 }
 
 .infoContainer {
