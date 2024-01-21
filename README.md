@@ -6,10 +6,10 @@ We are 4 Computer Engineering students that wanted to gain experience in web dev
 ConUHacks was a great opportunity to develop our web development skills by working on a challenge that pushed our limits.
 
 Made By :
--Kyle Rasinger (Front-End Development)
--Thomas Mejia (Front-End Development)
--Omar Hassasein (Backend Development)
--Khaled Eshoukri (Backend Development
+Kyle Rasinger (Front-End Development), 
+Thomas Mejia (Front-End Development), 
+Omar Hassasein (Backend Development), 
+Khaled Eshoukri (Backend Development).
 
 
 # How To Setup
