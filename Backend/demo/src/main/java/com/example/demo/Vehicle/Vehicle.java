@@ -15,7 +15,18 @@ public class Vehicle {
 	public Vehicle() {
 		
 	}
-	
+	public Vehicle( String iClassType,
+					LocalDate iDateOfRequest,
+					LocalTime iRequestTime,
+					LocalDate iDateofService,
+					LocalTime iServiceTime){
+		this.mClassType = iClassType;
+		this.mDateOfRequest = iDateOfRequest;
+		this.mRequestTime = iRequestTime;
+		this.mDateOfService = iDateofService;
+		this.mServiceTime = iServiceTime;
+
+	}
 	public Vehicle(int iChargeCost,
 	               String iClassType,
 	               LocalDate iDateOfRequest,
