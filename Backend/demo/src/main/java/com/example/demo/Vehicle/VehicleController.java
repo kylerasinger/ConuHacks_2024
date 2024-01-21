@@ -54,10 +54,10 @@ public class VehicleController {
 	public int mFullSizeCarCountMissed;
 	public int mClass1TrucksCountMissed;
 	public int mClass2TrucksCountMissed;
-	private int mTotalActualRevenue;
-	private int mTotalMissedRevenue;
-	private int mTotalActualVehicles;
-	private int mTotalMissedVehicles;
+	public int mTotalActualRevenue;
+	public int mTotalMissedRevenue;
+	public int mTotalActualVehicles;
+	public int mTotalMissedVehicles;
 	
 	public VehicleController() {
 		
@@ -69,7 +69,6 @@ public class VehicleController {
 
     @PostMapping("/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("datafile") MultipartFile file){
-        
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
                 String line;
@@ -140,7 +139,6 @@ public class VehicleController {
         return result;
     }
     
-//<<<<<<< HEAD
 	@GetMapping("/create-schedule")
     public ResponseEntity<ScheduleResponseDTO> createSchedule() {
 	    
@@ -162,321 +160,280 @@ public class VehicleController {
         int currentMinute = convertToLocalTimeToInt(vehicle.getServiceTime());
         //store in currentMinute
         
+		System.out.println("Current Date: " + currentDate);
         switch (classType) {
-            case "CompactCar":
+            case "compact":
             	int reservedBay = 0;
+
             	//check bay 0 bc compactCar
             	boolean isEmpty;
             	boolean isEmptyBay;
             	
             	for(int i = currentMinute; i < currentMinute+30; i++) {
-            		
+					if (i > 719) {
+						break;
+					}		
             		if(schedule[currentDate][reservedBay][i] == 0) {
-            			
             			isEmpty = true;
             		}
             		else
             			isEmpty = false;
-            		 
             	}
             	
             	if(isEmpty = true) {
             		mCompactCarCount++;
-            		
+					System.out.println("Compact Car Count: " + mCompactCarCount);
                 	for(int i = currentMinute; i < currentMinute+30; i++) {
-                		
-                       schedule[currentDate][reservedBay][i] = 1; 
-                		 
+						if (i > 719) {
+							break;
+						}
+                        schedule[currentDate][reservedBay][i] = 1;  
                 	}
-            	}
-            	
-            	else {
-            		
+            	}else{
             		int j = currentMinute;
-            		
             		for(int i = 5; i < 10; i++) {
+						if (currentMinute + 30 > 719) {
+							continue; // Break out of the outer loop if the time exceeds bounds
+						}
+					
             			for( ; j < currentMinute+30; j++) {
-                		
             				if(schedule[currentDate][j][i] == 0) {
-            					
             					isEmptyBay = true;
-            					
-            				}
-            				
-            				else {
+            				}else{
             					isEmptyBay = false;
             				}
             			}
                  	}
+
                 	if(isEmpty = true) {
                 		mCompactCarCount++;
-                		
                     	for(int i = currentMinute; i < currentMinute+30; i++) {
-                    		
-                           schedule[currentDate][j][i] = 1; 
-                    		 
+                           schedule[currentDate][j][i] = 1; 	 
                     	}
-                	}
-                	
-                	else
+                	}else{
                 		mCompactCarCountMissed++;
+					}
             	}
                 break;
-            case "MediumCar":
+            case "medium":
             	int reservedBay1 = 1;
+
             	//check bay 1 bc compactCar
             	boolean isEmpty1;
             	boolean isEmptyBay1;
             	
             	for(int i = currentMinute; i < currentMinute+30; i++) {
-            		
+					if (i > 719) {
+						break;
+					}		
             		if(schedule[currentDate][reservedBay1][i] == 0) {
-            			
             			isEmpty1 = true;
-            		}
-            		else
+            		}else{
             			isEmpty1 = false;
-            		 
+					}
             	}
             	
             	if(isEmpty1 = true) {
             		mMediumCarCount++;
-            		
                 	for(int i = currentMinute; i < currentMinute+30; i++) {
-                		
-                       schedule[currentDate][reservedBay1][i] = 1; 
-                		 
+						if (i > 719) {
+							break;
+						}
+                        schedule[currentDate][reservedBay1][i] = 1; 
                 	}
-            	}
-            	
-            	else {
-            		
+            	}else{
             		int j = currentMinute;
             		
             		for(int i = 5; i < 10; i++) {
+						if (currentMinute + 30 > 719) {
+							continue; // Break out of the outer loop if the time exceeds bounds
+						}
             			for( ; j < currentMinute+30; j++) {
-                		
-            				if(schedule[currentDate][j][i] == 0) {
-            					
+                			if(schedule[currentDate][j][i] == 0) {	
             					isEmptyBay1 = true;
-            					
-            				}
-            				
-            				else {
+            				}else{
             					isEmptyBay1 = false;
             				}
             			}
                  	}
                 	if(isEmpty1 = true) {
                 		mMediumCarCount++;
-                		
                     	for(int i = currentMinute; i < currentMinute+30; i++) {
-                    		
                            schedule[currentDate][j][i] = 1; 
-                    		 
                     	}
-                	}
-                	
-                	else
+                	}else{
                 		mMediumCarCountMissed++;
+					}
             	}
                 break;
-            case "FullSizeCar":
+            case "full-size":
             	int reservedBay2 = 2;
             	//check bay 1 bc compactCar
             	boolean isEmpty2;
             	boolean isEmptyBay2;
             	
-            	for(int i = currentMinute; i < currentMinute+30; i++) {
-            		
+            	for(int i = currentMinute; i < currentMinute+30; i++) {	
+					if (i > 719) {
+						break;
+					}		
             		if(schedule[currentDate][reservedBay2][i] == 0) {
-            			
             			isEmpty2 = true;
-            		}
-            		else
+            		}else{
             			isEmpty2 = false;
-            		 
+					}
             	}
             	
             	if(isEmpty2 = true) {
             		mFullSizeCarCount++;
-            		
                 	for(int i = currentMinute; i < currentMinute+30; i++) {
-                		
-                       schedule[currentDate][reservedBay2][i] = 1; 
-                		 
+						if (i > 719) {
+							break;
+						}
+                        schedule[currentDate][reservedBay2][i] = 1; 
                 	}
-            	}
-            	
-            	else {
-            		
+            	}else{
             		int j = currentMinute;
-            		
+					if (currentMinute + 30 > 719) {
+						continue; // Break out of the outer loop if the time exceeds bounds
+					}
             		for(int i = 5; i < 10; i++) {
             			for( ; j < currentMinute+30; j++) {
-                		
             				if(schedule[currentDate][j][i] == 0) {
-            					
             					isEmptyBay2 = true;
-            					
-            				}
-            				
-            				else {
+							}else{
             					isEmptyBay2 = false;
             				}
             			}
                  	}
+
                 	if(isEmpty2 = true) {
-                		mFullSizeCarCount++;
-                		
+                		mFullSizeCarCount++;	
                     	for(int i = currentMinute; i < currentMinute+30; i++) {
-                    		
                            schedule[currentDate][j][i] = 1; 
-                    		 
                     	}
-                	}
-                	
-                	else
+					}else{
                 		mFullSizeCarCountMissed++;
-            	}
+					}
+				}
                 break;
-            case "Class1Trucks":
+            case "class 1 truck":
             	int reservedBay3 = 3;
-            	//check bay 1 bc compactCar
+            	
+				//check bay 1 bc compactCar
             	boolean isEmpty3;
             	boolean isEmptyBay3;
             	
-            	for(int i = currentMinute; i < currentMinute+60; i++) {
-            		
+            	for(int i = currentMinute; i < currentMinute+60; i++) {	
+					if (i > 719) {
+						break;
+					}		
             		if(schedule[currentDate][reservedBay3][i] == 0) {
-            			
             			isEmpty3 = true;
-            		}
-            		else
+            		}else{
             			isEmpty3 = false;
-            		 
+					}
             	}
             	
             	if(isEmpty3 = true) {
             		mClass1TrucksCount++;
-            		
                 	for(int i = currentMinute; i < currentMinute+60; i++) {
-                		
-                       schedule[currentDate][reservedBay3][i] = 1; 
-                		 
+						if (i > 719) {
+							break;
+						}
+                        schedule[currentDate][reservedBay3][i] = 1; 
                 	}
             	}
             	
-            	else {
-            		
+            	else{
             		int j = currentMinute;
-            		
             		for(int i = 5; i < 10; i++) {
+						if (currentMinute + 60 > 719) {
+							continue; // Break out of the outer loop if the time exceeds bounds
+						}
             			for( ; j < currentMinute+60; j++) {
-                		
             				if(schedule[currentDate][j][i] == 0) {
-            					
             					isEmptyBay3 = true;
-            					
-            				}
-            				
-            				else {
+            				}else{
             					isEmptyBay3 = false;
             				}
             			}
                  	}
+
                 	if(isEmpty3 = true) {
-                		mClass1TrucksCount++;
-                		
+                		mClass1TrucksCount++;	
                     	for(int i = currentMinute; i < currentMinute+60; i++) {
-                    		
                            schedule[currentDate][j][i] = 1; 
-                    		 
                     	}
-                	}
-                	
-                	else
+                	}else{
                 		mClass1TrucksCountMissed++;
-            	}
+					}
+				}
                 break;
-            case "Class2Trucks":
+            case "class 2 truck":
+
             	int reservedBay4 = 4;
+
             	//check bay 1 bc compactCar
             	boolean isEmpty4;
             	boolean isEmptyBay4;
             	
-            	for(int i = currentMinute; i < currentMinute+120; i++) {
-            		
+            	for(int i = currentMinute; i < currentMinute+120; i++) {	
+					if (i > 719) {
+						break;
+					}				
             		if(schedule[currentDate][reservedBay4][i] == 0) {
-            			
             			isEmpty4 = true;
-            		}
-            		else
+            		}else{
             			isEmpty4 = false;
-            		 
+					}
             	}
             	
             	if(isEmpty4 = true) {
             		setClass2TrucksCount(mClass2TrucksCount);
-            		
                 	for(int i = currentMinute; i < currentMinute+120; i++) {
-                		
-                       schedule[currentDate][reservedBay4][i] = 1; 
-                		 
+						if (i > 719) {
+							break;
+						}
+                        schedule[currentDate][reservedBay4][i] = 1; 
                 	}
-            	}
-            	
-            	else {
-            		
+            	}else{
             		int j = currentMinute;
-            		
+					if (currentMinute + 120 > 719) {
+						continue; // Break out of the outer loop if the time exceeds bounds
+					}
             		for(int i = 5; i < 10; i++) {
             			for( ; j < currentMinute+120; j++) {
-                		
             				if(schedule[currentDate][j][i] == 0) {
-            					
             					isEmptyBay4 = true;
-            					
-            				}
-            				
-            				else {
+            				}else{
             					isEmptyBay4 = false;
             				}
             			}
                  	}
+
                 	if(isEmpty4 = true) {
-                		setClass2TrucksCount(mClass2TrucksCount);
-                		
+                		setClass2TrucksCount(mClass2TrucksCount);	
                     	for(int i = currentMinute; i < currentMinute+120; i++) {
-                    		
                            schedule[currentDate][j][i] = 1; 
-                    		 
                     	}
-                	}
-                	
-                	else
+                	}else{
                 		setClass2TrucksCountMissed(mClass2TrucksCountMissed);
-            	}
+					}
+				}
                 break;
             default:
                 // Handle unknown class type
+				System.out.println("Unknown class type: " + classType);
                 break;
         }
     }
+	System.out.println("Gets out of for loop");
 
-
-
-    mTotalActualRevenue = getTotalActualRevenue();
+	mTotalActualRevenue = getTotalActualRevenue();
     mTotalMissedRevenue = getTotalMissedRevenue();
     mTotalActualVehicles = getTotalActualVehicles();
     mTotalMissedVehicles = getTotalMissedVehicles();
-    }
-
-    // return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
-    //                          ", Turned away vehicles: " + mTotalMissedVehicles +
-    //                          ", Total Actual Revenue: " + mTotalActualRevenue +
-    //                          ", Total Missed Revenue: " + mTotalMissedRevenue);
-
+	
     //JSON object to return
     ScheduleResponseDTO response = new ScheduleResponseDTO();
     response.setTotalActualVehicles(mTotalActualVehicles);
