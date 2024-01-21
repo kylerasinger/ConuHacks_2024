@@ -8,7 +8,7 @@ ConUHacks was a great opportunity to develop our web development skills by worki
 Made By :
 Kyle Rasinger (Front-End Development), 
 Thomas Mejia (Front-End Development), 
-Omar Hassasein (Backend Development), 
+Omar Hassasein (Backend Development), and 
 Khaled Eshoukri (Backend Development).
 
 Figma Concept of the autoXschedule: https://www.figma.com/file/ePVtwHeVPffHbPoSR9C9qu/autoXschedule?type=design&node-id=1-2&mode=design&t=L8JWbr67PTiiW7yH-0
