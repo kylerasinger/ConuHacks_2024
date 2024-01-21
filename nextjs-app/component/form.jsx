@@ -1,7 +1,9 @@
 import { useState } from "react";
+import styles from "../styles/Home.module.css";
 
 export default function Form() {
     const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('No file selected');
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -11,7 +13,7 @@ export default function Form() {
         //!!! if file is a CSV
         if(file){
             const formData = new FormData();
-            formData.append('file', file)
+            formData.append('datafile', file)
 
             fetch('http://localhost:8080/api/v1/vehicle/upload', {
                 method: 'POST',
@@ -19,7 +21,7 @@ export default function Form() {
             })
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    return response.text();
                 }
                 throw new Error("Response was not OK")
             })
@@ -30,15 +32,28 @@ export default function Form() {
         }
     };
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name); // Update the file name
+    };
+
     return (
         <main>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} className={styles.formContainer}>
+                <label className={styles.customFileButton}>
+                    {fileName} {/* Display the selected file name */}
+                    <input
+                        type="file"
+                        name="file"
+                        className={styles.customFileInput}
+                        onChange={handleFileChange}
+                    />
+                </label>
                 <input
-                    type="file"
-                    name="file"
-                    onChange={(e) => setFile(e.target.files[0])}
+                    type="submit"
+                    value="Upload"
+                    className={styles.greenButton}
                 />
-                <input type="submit" value="Upload" />
             </form>
         </main>
     );

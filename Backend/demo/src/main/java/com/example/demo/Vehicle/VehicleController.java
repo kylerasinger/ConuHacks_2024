@@ -18,7 +18,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
+import java.util.Comparator;
 
 import javax.sql.rowset.spi.SyncFactory;
 
@@ -39,17 +41,18 @@ public class VehicleController {
 	public List<Vehicle> data = new ArrayList(); 
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file){
+    public ResponseEntity<String> handleFileUpload(@RequestParam("datafile") MultipartFile file){
+        
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     //data.add(line);
-                    String[] parts = line.split(",");
+                    String[] parts = line.split(",");	
                     String dateofrequest = parts[0];
                     String dateofservice = parts[1];
                     String classtype = parts[2];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
                     LocalDateTime DateOfRequest = LocalDateTime.parse(dateofrequest, formatter);
                     LocalDateTime DateOfService = LocalDateTime.parse(dateofservice, formatter);
@@ -69,8 +72,20 @@ public class VehicleController {
                 return ResponseEntity.badRequest().body("Error processing the file.");
             }
          // Process the data or return a response as needed
+		// Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest).thenComparing(Vehicle::getRequestTime));
+
          return ResponseEntity.ok("File uploaded successfully.");
 
+    }
+	
+	@GetMapping("/sorted-vehicles")
+    public ResponseEntity<List<Vehicle>> getSortedVehicles() {
+        // Sort the list based on DateOfRequest and RequestTime
+        Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest)
+                                          .thenComparing(Vehicle::getRequestTime));
+
+        // Return the sorted data in the response body
+        return ResponseEntity.ok(data);
     }
     
 	@GetMapping
@@ -78,5 +93,9 @@ public class VehicleController {
 		return "hello";
 	}
 
-    
+	
 }
+
+
+
+    
