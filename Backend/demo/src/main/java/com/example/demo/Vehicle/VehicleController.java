@@ -166,14 +166,14 @@ public class VehicleController {
             	int reservedBay = 0;
 
             	//check bay 0 bc compactCar
-            	boolean isEmpty;
-            	boolean isEmptyBay;
+            	boolean isEmpty = false;
+            	boolean isEmptyBay = false;
             	
             	for(int i = currentMinute; i < currentMinute+30; i++) {
 					if (i > 719) {
 						break;
 					}		
-            		if(schedule[currentDate][reservedBay][i] == 0) {
+            		else if(schedule[currentDate][reservedBay][i] == 0) {
             			isEmpty = true;
             		}
             		else
@@ -193,6 +193,7 @@ public class VehicleController {
             		int j = currentMinute;
             		for(int i = 5; i < 10; i++) {
 						if (currentMinute + 30 > 719) {
+							mCompactCarCountMissed++;
 							continue; // Break out of the outer loop if the time exceeds bounds
 						}
 					
@@ -201,6 +202,7 @@ public class VehicleController {
             					isEmptyBay = true;
             				}else{
             					isEmptyBay = false;
+								mCompactCarCountMissed++;
             				}
             			}
                  	}
@@ -219,11 +221,12 @@ public class VehicleController {
             	int reservedBay1 = 1;
 
             	//check bay 1 bc compactCar
-            	boolean isEmpty1;
-            	boolean isEmptyBay1;
+            	boolean isEmpty1 = false;
+            	boolean isEmptyBay1 = false;
             	
             	for(int i = currentMinute; i < currentMinute+30; i++) {
 					if (i > 719) {
+						mMediumCarCountMissed++;
 						break;
 					}		
             		if(schedule[currentDate][reservedBay1][i] == 0) {
@@ -237,6 +240,7 @@ public class VehicleController {
             		mMediumCarCount++;
                 	for(int i = currentMinute; i < currentMinute+30; i++) {
 						if (i > 719) {
+						mMediumCarCountMissed++;
 							break;
 						}
                         schedule[currentDate][reservedBay1][i] = 1; 
@@ -246,12 +250,14 @@ public class VehicleController {
             		
             		for(int i = 5; i < 10; i++) {
 						if (currentMinute + 30 > 719) {
+							mMediumCarCountMissed++;
 							continue; // Break out of the outer loop if the time exceeds bounds
 						}
             			for( ; j < currentMinute+30; j++) {
                 			if(schedule[currentDate][j][i] == 0) {	
             					isEmptyBay1 = true;
             				}else{
+								mMediumCarCountMissed++;
             					isEmptyBay1 = false;
             				}
             			}
@@ -269,16 +275,18 @@ public class VehicleController {
             case "full-size":
             	int reservedBay2 = 2;
             	//check bay 1 bc compactCar
-            	boolean isEmpty2;
-            	boolean isEmptyBay2;
+            	boolean isEmpty2 = false;
+            	boolean isEmptyBay2 = false;
             	
             	for(int i = currentMinute; i < currentMinute+30; i++) {	
 					if (i > 719) {
+						mFullSizeCarCountMissed++;
 						break;
 					}		
             		if(schedule[currentDate][reservedBay2][i] == 0) {
             			isEmpty2 = true;
             		}else{
+						mFullSizeCarCountMissed++;
             			isEmpty2 = false;
 					}
             	}
@@ -287,6 +295,7 @@ public class VehicleController {
             		mFullSizeCarCount++;
                 	for(int i = currentMinute; i < currentMinute+30; i++) {
 						if (i > 719) {
+							mFullSizeCarCountMissed++;
 							break;
 						}
                         schedule[currentDate][reservedBay2][i] = 1; 
@@ -294,6 +303,7 @@ public class VehicleController {
             	}else{
             		int j = currentMinute;
 					if (currentMinute + 30 > 719) {
+						mFullSizeCarCountMissed++;
 						continue; // Break out of the outer loop if the time exceeds bounds
 					}
             		for(int i = 5; i < 10; i++) {
@@ -301,6 +311,7 @@ public class VehicleController {
             				if(schedule[currentDate][j][i] == 0) {
             					isEmptyBay2 = true;
 							}else{
+								mFullSizeCarCountMissed++;
             					isEmptyBay2 = false;
             				}
             			}
@@ -320,16 +331,18 @@ public class VehicleController {
             	int reservedBay3 = 3;
             	
 				//check bay 1 bc compactCar
-            	boolean isEmpty3;
-            	boolean isEmptyBay3;
+            	boolean isEmpty3 = false;
+            	boolean isEmptyBay3 = false;
             	
             	for(int i = currentMinute; i < currentMinute+60; i++) {	
 					if (i > 719) {
+						mClass1TrucksCountMissed++;
 						break;
 					}		
             		if(schedule[currentDate][reservedBay3][i] == 0) {
             			isEmpty3 = true;
             		}else{
+						mClass1TrucksCountMissed++;
             			isEmpty3 = false;
 					}
             	}
@@ -338,6 +351,7 @@ public class VehicleController {
             		mClass1TrucksCount++;
                 	for(int i = currentMinute; i < currentMinute+60; i++) {
 						if (i > 719) {
+							mClass1TrucksCountMissed++;
 							break;
 						}
                         schedule[currentDate][reservedBay3][i] = 1; 
@@ -348,6 +362,7 @@ public class VehicleController {
             		int j = currentMinute;
             		for(int i = 5; i < 10; i++) {
 						if (currentMinute + 60 > 719) {
+							mClass1TrucksCountMissed++;
 							continue; // Break out of the outer loop if the time exceeds bounds
 						}
             			for( ; j < currentMinute+60; j++) {
@@ -379,11 +394,13 @@ public class VehicleController {
             	
             	for(int i = currentMinute; i < currentMinute+120; i++) {	
 					if (i > 719) {
+						mClass2TrucksCountMissed++;
 						break;
 					}				
             		if(schedule[currentDate][reservedBay4][i] == 0) {
             			isEmpty4 = true;
             		}else{
+						mClass2TrucksCountMissed++;
             			isEmpty4 = false;
 					}
             	}
@@ -392,6 +409,7 @@ public class VehicleController {
             		setClass2TrucksCount(mClass2TrucksCount);
                 	for(int i = currentMinute; i < currentMinute+120; i++) {
 						if (i > 719) {
+							mClass2TrucksCountMissed++;
 							break;
 						}
                         schedule[currentDate][reservedBay4][i] = 1; 
@@ -399,6 +417,7 @@ public class VehicleController {
             	}else{
             		int j = currentMinute;
 					if (currentMinute + 120 > 719) {
+						mClass2TrucksCountMissed++;
 						continue; // Break out of the outer loop if the time exceeds bounds
 					}
             		for(int i = 5; i < 10; i++) {
@@ -426,13 +445,18 @@ public class VehicleController {
 				System.out.println("Unknown class type: " + classType);
                 break;
         }
-    }
-	System.out.println("Gets out of for loop");
 
 	mTotalActualRevenue = getTotalActualRevenue();
     mTotalMissedRevenue = getTotalMissedRevenue();
     mTotalActualVehicles = getTotalActualVehicles();
     mTotalMissedVehicles = getTotalMissedVehicles();
+    }
+	System.out.println("Gets out of for loop");
+
+	// mTotalActualRevenue = getTotalActualRevenue();
+    // mTotalMissedRevenue = getTotalMissedRevenue();
+    // mTotalActualVehicles = getTotalActualVehicles();
+    // mTotalMissedVehicles = getTotalMissedVehicles();
 	
     //JSON object to return
     ScheduleResponseDTO response = new ScheduleResponseDTO();
@@ -441,12 +465,17 @@ public class VehicleController {
     response.setTotalActualRevenue(mTotalActualRevenue);
     response.setTotalMissedRevenue(mTotalMissedRevenue);
 
+	System.out.println(mMediumCarCount);
+	System.out.println(mCompactCarCount);
+	System.out.println(mClass1TrucksCount);
+	System.out.println(mClass2TrucksCount);
+	System.out.println(mFullSizeCarCount);
+
     return ResponseEntity.ok(response);                             
 }
 	
 
 	public int getTotalActualRevenue() {
-		
 		return mCompactCarCount*150 + mMediumCarCount*150 + mFullSizeCarCount*150 + mClass1TrucksCount*250 + mClass2TrucksCount*700;
 	}
 	
