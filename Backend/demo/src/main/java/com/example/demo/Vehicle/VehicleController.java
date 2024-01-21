@@ -18,7 +18,9 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Vector;
+import java.util.Comparator;
 
 import javax.sql.rowset.spi.SyncFactory;
 
@@ -70,8 +72,19 @@ public class VehicleController {
                 return ResponseEntity.badRequest().body("Error processing the file.");
             }
          // Process the data or return a response as needed
+		// Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest).thenComparing(Vehicle::getRequestTime));
+
          return ResponseEntity.ok("File uploaded successfully.");
 
+    }
+	@GetMapping("/sorted-vehicles")
+    public ResponseEntity<List<Vehicle>> getSortedVehicles() {
+        // Sort the list based on DateOfRequest and RequestTime
+        Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest)
+                                          .thenComparing(Vehicle::getRequestTime));
+
+        // Return the sorted data in the response body
+        return ResponseEntity.ok(data);
     }
     
 	@GetMapping
@@ -79,10 +92,26 @@ public class VehicleController {
 		return "hello";
 	}
 //https://www.baeldung.com/java-merge-sort
-	
-}
-/*
- public static void mergeSort(int[] a, int n) {
+	public static void merge(int[] a, int[] l, int[] r, int left, int right) {
+ 
+    	int i = 0, j = 0, k = 0;
+    	while (i < left && j < right) {
+        	if (l[i] <= r[j]) {
+            	a[k++] = l[i++];
+        	}
+        	else {
+            a[k++] = r[j++];
+        	}
+    	}
+    	while (i < left) {
+        	a[k++] = l[i++];
+    	}
+    	while (j < right) {
+        	a[k++] = r[j++];
+    	}
+    }
+
+	public static void mergeSort(int[] a, int n) {
 		if (n < 2) {
 			return;
 		}
@@ -101,27 +130,9 @@ public class VehicleController {
 	
 		merge(a, l, r, mid, n - mid);
 	}
-	public static void merge(int[] a, int[] l, int[] r, int left, int right) {
- 
-    	int i = 0, j = 0, k = 0;
-    	while (i < left && j < right) {
-        	if (l[i] <= r[j]) {
-            	a[k++] = l[i++];
-        	}
-        	else {
-            a[k++] = r[j++];
-        	}
-    	}
-    	while (i < left) {
-        	a[k++] = l[i++];
-    	}
-    	while (j < right) {
-        	a[k++] = r[j++];
-    	}
-	}
- */
 	
-	
+}
+
 
 
     
