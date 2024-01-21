@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.css';
 import Form from '../component/form';
 import { DataProvider } from '../utils/DataContext';
 import Navbar from '../component/navbar';
+import Report from '../component/report';
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <DataProvider>
+      <div>
         <Navbar/>
         <div className={styles.infoContainer}>
           <div className={styles.gradientBox}>
@@ -26,8 +27,8 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <Form></Form>
-      </DataProvider>
+        <Form />
+      </div>
 
       <style jsx>{`
         main {
