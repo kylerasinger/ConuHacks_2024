@@ -43,36 +43,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VehicleController {
 	
 
-	public int mCompactCarCount;
-	public int mMediumCarCount;
-	public int mFullSizeCarCount;
-	public int mClass1TrucksCount;
-	public int mClass2TrucksCount;
-	public int mCompactCarCountMissed;
-	public int mMediumCarCountMissed;
-	public int mFullSizeCarCountMissed;
-	public int mClass1TrucksCountMissed;
-	public int mClass2TrucksCountMissed;
-	private int mTotalActualRevenue;
-	private int mTotalMissedRevenue;
+	public int mCompactCarCount = 0;
+	public int mMediumCarCount = 0;
+	public int mFullSizeCarCount = 0;
+	public int mClass1TrucksCount = 0;
+	public int mClass2TrucksCount = 0;
+	public int mCompactCarCountMissed = 0;
+	public int mMediumCarCountMissed = 0;
+	public int mFullSizeCarCountMissed = 0;
+	public int mClass1TrucksCountMissed = 0;
+	public int mClass2TrucksCountMissed = 0;
+	private int mTotalActualRevenue = 0;
+	private int mTotalMissedRevenue = 0;
+	private int mTotalActualVehicles = 0;
+	private int mTotalMissedVehicles = 0;
 	
 	public VehicleController() {
 		
-		this.mCompactCarCount = 0;
-		this.mMediumCarCount = 0;
-		this.mFullSizeCarCount = 0;
-		this.mClass1TrucksCount = 0;
-		this.mClass2TrucksCount = 0;
-		this.mCompactCarCountMissed = 0;
-		this.mMediumCarCountMissed = 0;
-		this.mFullSizeCarCountMissed = 0;
-		this.mClass1TrucksCountMissed = 0;
-		this.mClass2TrucksCountMissed = 0;
-		
+	
 	}
 
 	
-	public List<Vehicle> data = new ArrayList(); 
+	public static List<Vehicle> data = new ArrayList(); 
 
     @PostMapping("/upload")
     public ResponseEntity<String> handleFileUpload(@RequestParam("datafile") MultipartFile file){
@@ -113,25 +105,83 @@ public class VehicleController {
     }
 	
 	@GetMapping("/sorted-vehicles")
-    public ResponseEntity<List<Vehicle>> getSortedVehicles() {
+    public List<Vehicle> getSortedVehicles() {
         // Sort the list based on DateOfRequest and RequestTime
         Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest)
                                           .thenComparing(Vehicle::getRequestTime));
 
         // Return the sorted data in the response body
-        return ResponseEntity.ok(data);
+        return data;
     }
     
-	@GetMapping
-	String hello(){
-		return "hello";
+	@PostMapping("/create-schedule")
+    public ResponseEntity<String> createSchedule() {
+	for (Vehicle vehicle : data) {
+        String classType = vehicle.getClassType();
+        boolean isTurnedAway = true;
 
-	}
-	
-	public void CreateSchedule(ArrayList<Vehicle> iSortedVehicle) {
-		
-		
-	}
+        switch (classType) {
+            case "CompactCar":
+                if (mCompactCarCount < 1) {
+                    mCompactCarCount++;
+                    isTurnedAway = false;
+                }
+                break;
+            case "MediumCar":
+                if (mMediumCarCount < 1) {
+                    mMediumCarCount++;
+                    isTurnedAway = false;
+                }
+                break;
+            case "FullSizeCar":
+                if (mFullSizeCarCount < 1) {
+                    mFullSizeCarCount++;
+                    isTurnedAway = false;
+                }
+                break;
+            case "Class1Trucks":
+                if (mClass1TrucksCount < 1) {
+                    mClass1TrucksCount++;
+                    isTurnedAway = false;
+                }
+                break;
+            case "Class2Trucks":
+                if (mClass2TrucksCount < 1) {
+                    mClass2TrucksCount++;
+                    isTurnedAway = false;
+                }
+                break;
+            default:
+                // Handle unknown class type
+                break;
+        }
+
+        if (isTurnedAway) {
+            mCompactCarCountMissed++;
+            mMediumCarCountMissed++;
+            mFullSizeCarCountMissed++;
+            mClass1TrucksCountMissed++;
+            mClass2TrucksCountMissed++;
+        } else {
+            mCompactCarCount++;
+            mMediumCarCount++;
+            mFullSizeCarCount++;
+            mClass1TrucksCount++;
+            mClass2TrucksCount++;
+        }
+    }
+
+    mTotalActualRevenue = getTotalActualRevenue();
+    mTotalMissedRevenue = getTotalMissedRevenue();
+    mTotalActualVehicles = getTotalActualVehicles();
+    mTotalMissedVehicles = getTotalMissedVehicles();
+    
+
+    return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
+            ", Turned away vehicles: " + mTotalMissedVehicles +
+            ", Total Actual Revenue: " + mTotalActualRevenue +
+            ", Total Missed Revenue: " + mTotalMissedRevenue);
+}
 	
 
 	public int getTotalActualRevenue() {
@@ -145,6 +195,18 @@ public class VehicleController {
 		
 		mTotalMissedRevenue = mCompactCarCountMissed*150 + mMediumCarCountMissed*150 + mFullSizeCarCountMissed*150 + mClass1TrucksCountMissed*250 + mClass2TrucksCountMissed*700;
 		return mTotalMissedRevenue;
+	}
+	
+	public int getTotalActualVehicles() {
+		
+		mTotalActualVehicles = mCompactCarCount + mMediumCarCount + mFullSizeCarCount + mClass1TrucksCount + mClass2TrucksCount;
+		return mTotalActualVehicles;
+	}
+	
+	public int getTotalMissedVehicles() {
+		
+		mTotalMissedVehicles = mCompactCarCountMissed + mMediumCarCountMissed + mFullSizeCarCountMissed + mClass1TrucksCountMissed + mClass2TrucksCountMissed;
+		return mTotalMissedVehicles;
 	}
 	
 	
