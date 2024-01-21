@@ -39,12 +39,8 @@ public class VehicleController {
 	public List<Vehicle> data = new ArrayList(); 
 
     @PostMapping("/upload")
-<<<<<<< HEAD
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file){
-=======
     public ResponseEntity<String> handleFileUpload(@RequestParam("datafile") MultipartFile file){
         
->>>>>>> origin/omar
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
                 String line;
