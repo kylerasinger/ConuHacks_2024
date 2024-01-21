@@ -1,7 +1,9 @@
 import { useState } from "react";
+import styles from "../styles/Home.module.css";
 
 export default function Form() {
     const [file, setFile] = useState(null);
+    const [fileName, setFileName] = useState('No file selected');
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -30,15 +32,28 @@ export default function Form() {
         }
     };
 
+    const handleFileChange = (e) => {
+        setFile(e.target.files[0]);
+        setFileName(e.target.files[0].name); // Update the file name
+    };
+
     return (
         <main>
-            <form onSubmit={submitHandler}>
+            <form onSubmit={submitHandler} className={styles.formContainer}>
+                <label className={styles.customFileButton}>
+                    {fileName} {/* Display the selected file name */}
+                    <input
+                        type="file"
+                        name="file"
+                        className={styles.customFileInput}
+                        onChange={handleFileChange}
+                    />
+                </label>
                 <input
-                    type="file"
-                    name="file"
-                    onChange={(e) => setFile(e.target.files[0])}
+                    type="submit"
+                    value="Upload"
+                    className={styles.greenButton}
                 />
-                <input type="submit" value="Upload" />
             </form>
         </main>
     );

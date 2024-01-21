@@ -96,3 +96,56 @@
 .tempColor{
   background-color: green;
 }
+
+.navbar {
+  display: flex;
+  justify-content: center;
+  font-size: 4rem;
+  align-items: center;
+  font-weight: bold;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+/* Form.module.css */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.customFileInput {
+  display: none; /* Hide the native input */
+}
+
+.customFileButton {
+  background-color: #38CD3569;
+  color: black;
+  font-weight: bold;
+  border-radius: 5px;
+  padding: 15px;
+  padding-left: 50px; /* Adjust as needed, considering the size of the image */
+  margin: 10px;
+  cursor: pointer;
+  font-size: 18px;
+  border: none;
+  width: 200px; /* Adjust width as needed */
+  text-align: center;
+  background-image: url('/file_icon.svg'); /* Path to your image */
+  background-repeat: no-repeat;
+  background-size: 30px 30px; /* Adjust size as needed */
+  background-position: 10px center; /* Adjust position as needed */
+}
+
+
+.greenButton {
+  background-color: #38CD3569;
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 15px;
+  margin: 10px;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  width: 200px; /* Adjust width as needed */
+}

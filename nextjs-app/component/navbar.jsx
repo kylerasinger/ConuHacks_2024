@@ -1,7 +1,11 @@
+import styles from "../styles/Home.module.css";
+
 export default function Navbar(){
     return(
         <>
-            This is the navbar
+            <div className={styles.navbar}>
+                autoXschedule
+            </div>
         </>
     )
 }
