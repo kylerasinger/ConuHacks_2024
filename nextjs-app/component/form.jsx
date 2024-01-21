@@ -1,9 +1,13 @@
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
+import Report from "./report";
 
 export default function Form() {
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState('No file selected');
+    const [processStarted, setProcessStarted] = useState(false);
+
+
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -37,6 +41,11 @@ export default function Form() {
         setFileName(e.target.files[0].name); // Update the file name
     };
 
+    const handleProcessStarted = (e) => {
+        console.log("Process started. ")
+        setProcessStarted(true);
+    };
+
     return (
         <main>
             <form onSubmit={submitHandler} className={styles.formContainer}>
@@ -53,8 +62,10 @@ export default function Form() {
                     type="submit"
                     value="Upload"
                     className={styles.greenButton}
+                    onClick={handleProcessStarted}
                 />
             </form>
+            {processStarted && <Report/>}
         </main>
     );
 }
