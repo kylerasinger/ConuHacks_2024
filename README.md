@@ -11,7 +11,7 @@ Thomas Mejia (Front-End Development),
 Omar Hassasein (Backend Development), and 
 Khaled Eshoukri (Backend Development).
 
-Autoxschedule Front-End Web Design Concept: https://www.figma.com/file/ePVtwHeVPffHbPoSR9C9qu/autoXschedule?type=design&node-id=1-2&mode=design&t=L8JWbr67PTiiW7yH-0
+AutoxSchedule Front-End Web Design Concept: https://www.figma.com/file/ePVtwHeVPffHbPoSR9C9qu/autoXschedule?type=design&node-id=1-2&mode=design&t=L8JWbr67PTiiW7yH-0
 
 # How To Setup
 	To properly implement the code on your machine, make sure to have the following installed 
