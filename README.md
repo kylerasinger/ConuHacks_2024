@@ -5,6 +5,13 @@ Hello!
 We are 4 Computer Engineering students that wanted to gain experience in web development.
 ConUHacks was a great opportunity to develop our web development skills by working on a challenge that pushed our limits.
 
+Made By :
+-Kyle Rasinger (Front-End Development)
+-Thomas Mejia (Front-End Development)
+-Omar Hassasein (Backend Development)
+-Khaled Eshoukri (Backend Development
+
+
 # How To Setup
 	To properly implement the code on your machine, make sure to have the following installed 
   		-> npm package
