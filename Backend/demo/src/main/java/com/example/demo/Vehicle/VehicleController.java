@@ -110,13 +110,12 @@ public class VehicleController {
         Collections.sort(data, Comparator.comparing(Vehicle::getDateOfRequest)
                                           .thenComparing(Vehicle::getRequestTime));
 
-        // Return the sorted data in the response body
         return data;
     }
     
 	@PostMapping("/create-schedule")
     public ResponseEntity<String> createSchedule() {
-	for (Vehicle vehicle : data) {
+	for (Vehicle vehicle : getSortedVehicles()) {
         String classType = vehicle.getClassType();
         boolean isTurnedAway = true;
 
@@ -178,35 +177,31 @@ public class VehicleController {
     
 
     return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
-            ", Turned away vehicles: " + mTotalMissedVehicles +
-            ", Total Actual Revenue: " + mTotalActualRevenue +
-            ", Total Missed Revenue: " + mTotalMissedRevenue);
+                             ", Turned away vehicles: " + mTotalMissedVehicles +
+                             ", Total Actual Revenue: " + mTotalActualRevenue +
+                             ", Total Missed Revenue: " + mTotalMissedRevenue);
 }
 	
 
 	public int getTotalActualRevenue() {
 		
-		mTotalActualRevenue = mCompactCarCount*150 + mMediumCarCount*150 + mFullSizeCarCount*150 + mClass1TrucksCount*250 + mClass2TrucksCount*700;
-		return mTotalActualRevenue;
+		return mCompactCarCount*150 + mMediumCarCount*150 + mFullSizeCarCount*150 + mClass1TrucksCount*250 + mClass2TrucksCount*700;
 	}
 	
 	
 	public int getTotalMissedRevenue() {
 		
-		mTotalMissedRevenue = mCompactCarCountMissed*150 + mMediumCarCountMissed*150 + mFullSizeCarCountMissed*150 + mClass1TrucksCountMissed*250 + mClass2TrucksCountMissed*700;
-		return mTotalMissedRevenue;
+		return mCompactCarCountMissed*150 + mMediumCarCountMissed*150 + mFullSizeCarCountMissed*150 + mClass1TrucksCountMissed*250 + mClass2TrucksCountMissed*700;
 	}
 	
 	public int getTotalActualVehicles() {
 		
-		mTotalActualVehicles = mCompactCarCount + mMediumCarCount + mFullSizeCarCount + mClass1TrucksCount + mClass2TrucksCount;
-		return mTotalActualVehicles;
+		return mCompactCarCount + mMediumCarCount + mFullSizeCarCount + mClass1TrucksCount + mClass2TrucksCount;
 	}
 	
 	public int getTotalMissedVehicles() {
 		
-		mTotalMissedVehicles = mCompactCarCountMissed + mMediumCarCountMissed + mFullSizeCarCountMissed + mClass1TrucksCountMissed + mClass2TrucksCountMissed;
-		return mTotalMissedVehicles;
+		return mCompactCarCountMissed + mMediumCarCountMissed + mFullSizeCarCountMissed + mClass1TrucksCountMissed + mClass2TrucksCountMissed;
 	}
 	
 	
