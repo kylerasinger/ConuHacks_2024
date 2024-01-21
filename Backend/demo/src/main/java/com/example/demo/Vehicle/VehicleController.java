@@ -44,20 +44,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class VehicleController {
 	
 
-	public int mCompactCarCount = 0;
-	public int mMediumCarCount = 0;
-	public int mFullSizeCarCount = 0;
-	public int mClass1TrucksCount = 0;
-	public int mClass2TrucksCount = 0;
-	public int mCompactCarCountMissed = 0;
-	public int mMediumCarCountMissed = 0;
-	public int mFullSizeCarCountMissed = 0;
-	public int mClass1TrucksCountMissed = 0;
-	public int mClass2TrucksCountMissed = 0;
-	private int mTotalActualRevenue = 0;
-	private int mTotalMissedRevenue = 0;
-	private int mTotalActualVehicles = 0;
-	private int mTotalMissedVehicles = 0;
+	public int mCompactCarCount;
+	public int mMediumCarCount;
+	public int mFullSizeCarCount;
+	public int mClass1TrucksCount;
+	public int mClass2TrucksCount;
+	public int mCompactCarCountMissed;
+	public int mMediumCarCountMissed;
+	public int mFullSizeCarCountMissed;
+	public int mClass1TrucksCountMissed;
+	public int mClass2TrucksCountMissed;
+	private int mTotalActualRevenue;
+	private int mTotalMissedRevenue;
+	private int mTotalActualVehicles;
+	private int mTotalMissedVehicles;
 	
 	public VehicleController() {
 		
@@ -140,13 +140,9 @@ public class VehicleController {
         return result;
     }
     
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	@GetMapping("/create-schedule")
     public ResponseEntity<ScheduleResponseDTO> createSchedule() {
-	for (Vehicle vehicle : getSortedVehicles()) {
-=======
-	@PostMapping("/create-schedule")
-    public ResponseEntity<String> createSchedule() {
 	    
 		int days = 61;
 		int bays = 10;
@@ -156,7 +152,6 @@ public class VehicleController {
 		int[][][] schedule = new int[days][bays][minutes];
 		
 		for (Vehicle vehicle : getSortedVehicles()) {
->>>>>>> origin/khaled
         String classType = vehicle.getClassType();
         boolean isTurnedAway = true;
 
