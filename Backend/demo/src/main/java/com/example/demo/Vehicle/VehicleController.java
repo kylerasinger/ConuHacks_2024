@@ -113,8 +113,8 @@ public class VehicleController {
         return data;
     }
     
-	@PostMapping("/create-schedule")
-    public ResponseEntity<String> createSchedule() {
+	@GetMapping("/create-schedule")
+    public ResponseEntity<ScheduleResponseDTO> createSchedule() {
 	for (Vehicle vehicle : getSortedVehicles()) {
         String classType = vehicle.getClassType();
         boolean isTurnedAway = true;
@@ -170,16 +170,27 @@ public class VehicleController {
         }
     }
 
+
+
     mTotalActualRevenue = getTotalActualRevenue();
     mTotalMissedRevenue = getTotalMissedRevenue();
     mTotalActualVehicles = getTotalActualVehicles();
     mTotalMissedVehicles = getTotalMissedVehicles();
     
 
-    return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
-                             ", Turned away vehicles: " + mTotalMissedVehicles +
-                             ", Total Actual Revenue: " + mTotalActualRevenue +
-                             ", Total Missed Revenue: " + mTotalMissedRevenue);
+    // return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
+    //                          ", Turned away vehicles: " + mTotalMissedVehicles +
+    //                          ", Total Actual Revenue: " + mTotalActualRevenue +
+    //                          ", Total Missed Revenue: " + mTotalMissedRevenue);
+
+    //JSON object to return
+    ScheduleResponseDTO response = new ScheduleResponseDTO();
+    response.setTotalActualVehicles(mTotalActualVehicles);
+    response.setTotalMissedVehicles(mTotalMissedVehicles);
+    response.setTotalActualRevenue(mTotalActualRevenue);
+    response.setTotalMissedRevenue(mTotalMissedRevenue);
+
+    return ResponseEntity.ok(response);                             
 }
 	
 
@@ -203,6 +214,60 @@ public class VehicleController {
 		
 		return mCompactCarCountMissed + mMediumCarCountMissed + mFullSizeCarCountMissed + mClass1TrucksCountMissed + mClass2TrucksCountMissed;
 	}
+
+    public class ScheduleResponseDTO {
+        private int totalActualVehicles;
+        private int totalMissedVehicles;
+        private double totalActualRevenue;
+        private double totalMissedRevenue;
+    
+        // Default Constructor
+        public ScheduleResponseDTO() {
+        }
+    
+        // Constructor with all fields
+        public ScheduleResponseDTO(int totalActualVehicles, int totalMissedVehicles, double totalActualRevenue, double totalMissedRevenue) {
+            this.totalActualVehicles = totalActualVehicles;
+            this.totalMissedVehicles = totalMissedVehicles;
+            this.totalActualRevenue = totalActualRevenue;
+            this.totalMissedRevenue = totalMissedRevenue;
+        }
+    
+        // Getters and Setters
+        public int getTotalActualVehicles() {
+            return totalActualVehicles;
+        }
+    
+        public void setTotalActualVehicles(int totalActualVehicles) {
+            this.totalActualVehicles = totalActualVehicles;
+        }
+    
+        public int getTotalMissedVehicles() {
+            return totalMissedVehicles;
+        }
+    
+        public void setTotalMissedVehicles(int totalMissedVehicles) {
+            this.totalMissedVehicles = totalMissedVehicles;
+        }
+    
+        public double getTotalActualRevenue() {
+            return totalActualRevenue;
+        }
+    
+        public void setTotalActualRevenue(double totalActualRevenue) {
+            this.totalActualRevenue = totalActualRevenue;
+        }
+    
+        public double getTotalMissedRevenue() {
+            return totalMissedRevenue;
+        }
+    
+        public void setTotalMissedRevenue(double totalMissedRevenue) {
+            this.totalMissedRevenue = totalMissedRevenue;
+        }
+    }
+    
+    
 	
 	
 }
