@@ -5,14 +5,14 @@ Hello!
 We are 4 Computer Engineering students that wanted to gain experience in web development.
 ConUHacks was a great opportunity to develop our web development skills by working on a challenge that pushed our limits.
 
-#How To Setup
-To properly implement the code on your machine, make sure to have the following installed 
-  -> npm package
-  -> maven package
-  -> SpringBoot
-  -> Open the Demo folder with your favorite IDE/Text Editor AKA VS Code ;)
+# How To Setup
+	To properly implement the code on your machine, make sure to have the following installed 
+  		-> npm package
+  		-> maven package
+  		-> SpringBoot
+  		-> Open the Demo folder with your favorite IDE/Text Editor AKA VS Code ;)
 
-#Step-By-Step
+# Step-By-Step
 	1- One terminal for Springboot Java Backend
   	2- Direct it to ConuHacks_2024\Backend\demo
   	3- Run this command: mvn spring-boot:run
