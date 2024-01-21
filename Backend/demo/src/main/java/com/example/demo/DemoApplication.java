@@ -17,6 +17,19 @@ public class DemoApplication {
 	@GetMapping
 	public String hello() {
 		return "hello";
+
+		//get csv
+
+		//turn csv to array list 
+
+		//sort array list with quicksort
+
+		//for loop across sorted array
+			//if reserved bay is free at time of reservation
+				//if reserved bay is free 
+				//if free, add to list of free bays
+			//if not free
+
 	}
 
 }
