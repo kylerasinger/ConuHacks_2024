@@ -144,7 +144,7 @@ public class VehicleController {
     public ResponseEntity<String> createSchedule() {
 	    
 		int days = 61;
-		int bays = 10;
+		int bays = 9;
 		int minutes = 720;
 		
 	    //initialize triple array
@@ -152,7 +152,6 @@ public class VehicleController {
 		
 		for (Vehicle vehicle : getSortedVehicles()) {
         String classType = vehicle.getClassType();
-        boolean isTurnedAway = true;
 
         //translate requested date into day between 0 - 60
         int currentDate = convertToLocalDateToInt(vehicle.getDateOfService());
@@ -462,13 +461,12 @@ public class VehicleController {
                 // Handle unknown class type
                 break;
         }
-    }
-
+    
     mTotalActualRevenue = getTotalActualRevenue();
     mTotalMissedRevenue = getTotalMissedRevenue();
     mTotalActualVehicles = getTotalActualVehicles();
     mTotalMissedVehicles = getTotalMissedVehicles();
-    
+    }
 
     return ResponseEntity.ok("Schedule created successfully. Serviced vehicles: " + mTotalActualVehicles +
                              ", Turned away vehicles: " + mTotalMissedVehicles +
