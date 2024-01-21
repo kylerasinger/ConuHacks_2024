@@ -11,7 +11,7 @@ export default function Form() {
         //!!! if file is a CSV
         if(file){
             const formData = new FormData();
-            formData.append('file', file)
+            formData.append('datafile', file)
 
             fetch('http://localhost:8080/api/v1/vehicle/upload', {
                 method: 'POST',
@@ -19,7 +19,7 @@ export default function Form() {
             })
             .then(response => {
                 if (response.ok) {
-                    return response.json();
+                    return response.text();
                 }
                 throw new Error("Response was not OK")
             })

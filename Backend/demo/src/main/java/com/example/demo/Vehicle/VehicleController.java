@@ -50,7 +50,7 @@ public class VehicleController {
                     String dateofrequest = parts[0];
                     String dateofservice = parts[1];
                     String classtype = parts[2];
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
                     LocalDateTime DateOfRequest = LocalDateTime.parse(dateofrequest, formatter);
                     LocalDateTime DateOfService = LocalDateTime.parse(dateofservice, formatter);
