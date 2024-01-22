@@ -17,7 +17,7 @@ AutoxSchedule Front-End Web Design Concept: https://www.figma.com/file/ePVtwHeVP
 	To properly implement the code on your machine, make sure to have the following installed 
  		-> node.js
   		-> npm package
-    		-> java
+    	-> java
   		-> maven package
   		-> SpringBoot
   		-> Open the Demo folder with your favorite IDE/Text Editor AKA VS Code ;)
